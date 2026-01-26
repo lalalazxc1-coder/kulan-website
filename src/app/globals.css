@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  /* Kulan Oil Brand Colors - EXACT MATCH from original system */
+  --color-kulanBlue: #003366;
+  --color-kulanOrange: #FF6600;
+  --color-kulanGreen: #10B981;
+  --color-milesRed: #E11D48;
+  --color-kulanDark: #1a1a1a;
+  --color-lightGray: #F9FAFB;
+  --color-hhRed: #D6001C;
+  --color-slate-900: #0f172a;
+  /* Explicit definition for dark mode bg match */
+
+  /* Fonts */
+  --font-heading: Montserrat, sans-serif;
+  --font-sans: Inter, sans-serif;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  /* Ensure native smooth scroll for anchors */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Apply dark variables when .dark class is present */
+.dark {
+  --background: #0f172a;
+  /* MATCHED TO ORIGINAL style.css html.dark */
+  --foreground: #ededed;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Inter, sans-serif;
+  overflow-x: hidden;
+  /* MATCHED TO ORIGINAL style.css base layer */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Montserrat, sans-serif;
+  /* MATCHED TO ORIGINAL style.css base layer */
+}
+
+/* --- Added Animation & Lenis Utilities --- */
+
+/* Ripple Effect */
+.ripple-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple {
+  position: absolute;
+  border-radius: 50%;
+  transform: scale(0);
+  background: rgba(255, 255, 255, 0.4);
+  animation: ripple-animation 0.6s linear;
+  pointer-events: none;
+}
+
+@keyframes ripple-animation {
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Lenis recommended styles */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+@keyframes liquid-fill {
+  0% {
+    height: 0;
+  }
+
+  100% {
+    height: 100%;
+  }
+}
+
+.animate-liquid-fill {
+  animation: liquid-fill 2s ease-in-out infinite alternate;
+}
+
+/* Custom Scrollbar Utilities */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+@layer utilities {
+  .animate-dash {
+    animation: dash 1s linear infinite;
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -12;
+  }
 }

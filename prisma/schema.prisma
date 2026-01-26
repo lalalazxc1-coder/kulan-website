@@ -1,0 +1,139 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id            Int      @id @default(autoincrement())
+  name          String
+  slug          String   @unique
+  article       String?  // New field
+  description   String?
+  applicability String?
+  
+  // Images
+  image         String?  // Main image filename
+  gallery       String?  // JSON string of filenames for simplicity in SQLite
+
+  // Specs
+  specs         String?  // JSON string: [{"label": "Volume", "value": "4L"}]
+
+  // Documents
+  documents     String?  // JSON string: [{"name": "Certificate", "url": "..."}]
+
+  // Relations
+  categoryId    Int?
+  category      Category? @relation(fields: [categoryId], references: [id])
+  
+  brandId       Int?
+  brand         Brand?   @relation(fields: [brandId], references: [id])
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  createdById   Int?
+  createdBy     User?    @relation(fields: [createdById], references: [id])
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String   @unique
+  products  Product[]
+  
+  parentId  Int?
+  parent    Category? @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children  Category[] @relation("CategoryHierarchy")
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  createdById   Int?
+  createdBy     User?    @relation(fields: [createdById], references: [id])
+}
+
+model Brand {
+  id       Int      @id @default(autoincrement())
+  name     String
+  slug     String   @unique
+  logo     String?
+  products Product[]
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  createdById   Int?
+  createdBy     User?    @relation(fields: [createdById], references: [id])
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String   // Hashed
+  name      String?
+  role      String   @default("admin") // admin, editor
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  products   Product[]
+  categories Category[]
+  brands     Brand[]
+}
+
+model SiteSetting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String
+  label     String?
+  
+  updatedAt DateTime @updatedAt
+}
+
+model Branch {
+  id        Int              @id @default(autoincrement())
+  slug      String           @unique // e.g. "almaty" - for potential routing or stable ID
+  sortOrder Int              @default(0)
+  
+  // City Name Translations
+  name_ru   String
+  name_kk   String
+  name_en   String
+  
+  locations BranchLocation[]
+  createdAt DateTime         @default(now())
+  updatedAt DateTime         @updatedAt
+}
+
+model BranchLocation {
+  id        Int      @id @default(autoincrement())
+  branchId  Int
+  branch    Branch   @relation(fields: [branchId], references: [id], onDelete: Cascade)
+  
+  // Location Name (e.g. "Office", "Warehouse 1")
+  name_ru   String?
+  name_kk   String?
+  name_en   String?
+
+  // Address
+  address_ru String
+  address_kk String
+  address_en String
+
+  // Contacts (stored as comma-separated string or simple text)
+  phones    String?  // e.g. "+7 700 000 0000, +7 700 ..."
+  emails    String?  // e.g. "info@kulan.kz"
+  mapLink   String?  // URL to 2GIS/Google Maps
+
+
+  type      String   // 'office', 'warehouse', 'head_office'
+  sortOrder Int      @default(0)
+}
