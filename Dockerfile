@@ -38,10 +38,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/entrypoint.sh ./entrypoint.sh
 COPY --from=builder --chown=nextjs:nodejs /app/create-admin.js ./create-admin.js
 COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
-# Copy prisma CLI and engines to allow migrations without full npm install
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/prisma ./node_modules/prisma
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/@prisma ./node_modules/@prisma
-COPY --from=builder --chown=nextjs:nodejs /app/node_modules/.bin ./node_modules/.bin
+# Copy node_modules from deps to ensure all Prisma CLI dependencies are present
+COPY --from=deps --chown=nextjs:nodejs /app/node_modules ./node_modules
 
 RUN chmod +x ./entrypoint.sh
 
