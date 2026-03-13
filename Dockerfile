@@ -30,19 +30,17 @@ ENV HOSTNAME="0.0.0.0"
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy essential files
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/prisma ./prisma
-COPY --from=builder /app/entrypoint.sh ./entrypoint.sh
-COPY --from=builder /app/create-admin.js ./create-admin.js
-
 # Copy standalone build
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/prisma ./prisma
+COPY --from=builder --chown=nextjs:nodejs /app/entrypoint.sh ./entrypoint.sh
+COPY --from=builder --chown=nextjs:nodejs /app/create-admin.js ./create-admin.js
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
 
-# Install prisma in runner to ensure migrations can run
-RUN npm install prisma@6.19.2
+# Copy prisma CLI and engines to allow migrations without full npm install
+COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
+COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 RUN chmod +x ./entrypoint.sh
 
