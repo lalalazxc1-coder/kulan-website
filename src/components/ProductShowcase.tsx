@@ -5,20 +5,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import VanillaTilt from 'vanilla-tilt';
 import { ProductCard } from '@/components/catalog/ProductCard';
+import type { ProductWithCategoryAndBrand } from '@/types';
 
-interface Product {
-    id: number;
-    name: string;
-    image: string | null;
-    slug: string;
-    article: string | null;
-    brand?: {
-        name: string;
-        image: string | null;
-    } | null;
-}
-
-export default function ProductShowcase({ products }: { products: Product[] }) {
+export default function ProductShowcase({ products }: { products: ProductWithCategoryAndBrand[] }) {
     const tiltRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {

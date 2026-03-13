@@ -14,6 +14,7 @@ import { FloatingControls } from "@/components/FloatingControls";
 import { FeedbackModal } from "@/components/FeedbackModal";
 import { ParticleBackground } from "@/components/ParticleBackground";
 import ProductShowcase from "@/components/ProductShowcase";
+import type { ProductWithCategoryAndBrand } from "@/types";
 
 interface HomeViewProps {
     metrics: {
@@ -23,7 +24,7 @@ interface HomeViewProps {
         stat_branches: string;
         stat_employees: string;
     },
-    products?: any[]
+    products?: ProductWithCategoryAndBrand[]
 }
 
 export function HomeView({ metrics, products = [] }: HomeViewProps) {
