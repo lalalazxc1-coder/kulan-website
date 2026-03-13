@@ -122,20 +122,6 @@ export function Footer() {
                                     className="h-6 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
                                 />
                             </a>
-                            <a
-                                href="https://exline.kz"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group flex items-center justify-center p-3 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 hover:shadow-md transition"
-                            >
-                                <Image
-                                    src="/logoexline.png"
-                                    alt="Exline"
-                                    width={80}
-                                    height={24}
-                                    className="h-6 w-auto object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                                />
-                            </a>
                         </div>
                     </div>
 

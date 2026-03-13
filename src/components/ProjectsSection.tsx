@@ -115,45 +115,7 @@ export function ProjectsSection() {
                     </div>
                 </div>
 
-                {/* Project 3: Exline - z-30 */}
-                <div className="sticky-project sticky top-36 sm:top-40 md:top-56 z-30 w-full bg-white dark:bg-slate-800 rounded-[40px] shadow-2xl overflow-hidden border border-gray-100 dark:border-slate-700 min-h-[500px] flex flex-col md:flex-row origin-top transition-transform duration-300">
-                    <div className="p-8 md:p-12 w-full md:w-1/2 flex flex-col justify-center order-2 md:order-1 fade-up-trigger">
-                        <div className="w-14 h-14 bg-green-50 dark:bg-green-900/20 text-green-500 rounded-2xl flex items-center justify-center text-2xl mb-8">
-                            <i className="fas fa-truck-fast"></i>
-                        </div>
-                        <h3 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white mb-2">
-                            {t("project4_title")}
-                        </h3>
-                        <h4 className="text-xl font-bold text-gray-500 dark:text-gray-400 mb-6">
-                            {t("project4_subtitle")}
-                        </h4>
 
-                        <p className="text-lg text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
-                            {t("project4_desc")}
-                        </p>
-
-                        <a
-                            href="https://exline.kz"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-3 text-green-600 font-bold hover:text-green-700 dark:text-green-500 dark:hover:text-green-400 transition group w-max"
-                        >
-                            <span>{t("project4_btn")}</span>
-                            <div className="w-8 h-8 rounded-full bg-green-50 dark:bg-green-900/30 flex items-center justify-center group-hover:translate-x-2 transition-transform">
-                                <i className="fas fa-arrow-right text-xs"></i>
-                            </div>
-                        </a>
-                    </div>
-                    <div className="w-full md:w-1/2 bg-green-50 dark:bg-green-900/10 relative overflow-hidden h-[300px] md:h-auto order-1 md:order-2 group">
-                        <Image
-                            src="/images/exline.jpg"
-                            alt="ExLine"
-                            fill
-                            className="absolute inset-0 w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105"
-                            style={{ objectFit: 'contain' }}
-                        />
-                    </div>
-                </div>
             </div>
         </section>
     );
