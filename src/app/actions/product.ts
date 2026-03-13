@@ -109,7 +109,7 @@ export async function createProduct(formData: FormData): Promise<ServerActionRes
                 image: imagePath,
                 categoryId: categoryId ? parseInt(categoryId) : null,
                 brandId: brandId ? parseInt(brandId) : null,
-                createdById: session?.user?.id ? parseInt(session.user.id) : null,
+                createdById: session?.user?.id ? session.user.id : null,
                 specs: specs,
                 documents: JSON.stringify(documents),
                 gallery: JSON.stringify(gallery)

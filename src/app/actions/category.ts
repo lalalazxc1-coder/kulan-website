@@ -16,8 +16,8 @@ export async function createCategory(formData: FormData) {
         data: {
             title,
             slug,
-            parentId: parentId ? parseInt(parentId as string) : null,
-            createdById: session?.user?.id ? parseInt(session.user.id) : null,
+            parentId: parentId,
+            createdById: session?.user?.id ? session.user.id : null,
         },
     });
 

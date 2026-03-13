@@ -31,7 +31,7 @@ export async function createBrand(formData: FormData) {
             name,
             slug,
             logo: logoPath,
-            createdById: session?.user?.id ? parseInt(session.user.id) : null,
+            createdById: session?.user?.id ? session.user.id : null,
         },
     });
 
